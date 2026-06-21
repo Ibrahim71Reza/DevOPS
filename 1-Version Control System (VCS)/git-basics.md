@@ -58,24 +58,7 @@ git diff --staged          # See staged changes before committing
 git diff HEAD              # See all current changes compared with the latest commit
 ```
 
-`git diff` only shows changes in your working directory that are **not staged yet**. If you already used `git add`, those changes moved into the staging area, so plain `git diff` may show nothing.
-
-To compare your current project with the latest commit, use:
-
-```bash
-git diff HEAD
-```
-
-This shows both staged and unstaged changes compared with the latest commit.
-
-Common diff commands:
-
-| Command | What it shows |
-|---|---|
-| `git diff` | Unstaged changes only |
-| `git diff --staged` | Staged changes only |
-| `git diff HEAD` | All current changes compared with the latest commit |
-| `git diff HEAD~1 HEAD` | Difference between the latest commit and the commit before it |
+If `git diff` shows nothing, your changes may already be staged. Use `git diff --staged` to see staged changes, or `git diff HEAD` to compare all current changes with the latest commit.
 
 ### Saving changes
 ```bash
@@ -124,118 +107,29 @@ Suppose your commit history looks like this:
 
 If you go back to commit `10` and then create a new commit `15`, what happens to commits `11` to `14` depends on the command you use.
 
-#### Using `git revert`
-
-```bash
-git revert <commit>
-```
-
-`git revert` is the safer way to undo a commit. It does not delete old commits. Instead, it creates a new commit that reverses the changes from an earlier commit.
-
-Your history still keeps the commits in between:
+With `git revert`, Git creates a new commit that undoes an old commit. It does not delete history:
 
 ```text
 10 -> 11 -> 12 -> 13 -> 14 -> 15
 ```
 
-So commits `11`, `12`, `13`, and `14` are still saved in normal Git history.
-
-Example:
-
-```bash
-git revert 12
-```
-
-This creates a new commit that undoes the changes introduced by commit `12`. Commit `12` still remains in the history.
-
-Use `git revert` when:
-
-- The commit was already pushed to GitHub
-- Other people may already have the commit
-- You want a clear history that shows what was undone
-
-#### Using `git reset --hard`
-
-```bash
-git reset --hard <commit-10>
-```
-
-There is no usual command called `git revert --hard`. When people say "hard revert", they usually mean `git reset --hard`.
-
-`git reset --hard` is a stronger command. It moves your current branch back to an older commit and also changes your files to match that old commit exactly.
-
-That means it can remove:
-
-- Commits from the visible branch history
-- Staged changes
-- Unstaged changes in tracked files
-
-If you run:
-
-```bash
-git reset --hard 10
-```
-
-your branch moves back to commit `10`. After that, if you make a new commit, the visible branch history may look like this:
+With `git reset --hard`, Git moves the branch back and changes your files to match that old commit:
 
 ```text
 10 -> 15
 ```
 
-Commits `11`, `12`, `13`, and `14` are no longer shown in the normal branch history. Git may still keep them internally for some time, and you can often find them with:
+Commits `11` to `14` may still be recoverable for a while using:
 
 ```bash
 git reflog
 ```
 
-But they are not guaranteed to stay forever if no branch, tag, or reflog points to them.
+But they are removed from the normal branch history and are not guaranteed to stay forever.
 
-Use `git reset --hard` when:
+There is no common command called `git revert --hard`. When people say "hard revert", they usually mean `git reset --hard`.
 
-- You are working locally
-- You have not pushed those commits yet
-- You are sure you do not need the current file changes
-
-Do not use `git reset --hard` casually on shared commits, because it rewrites the visible branch history and can confuse other people working on the same branch.
-
-#### Soft, Mixed, and Hard Reset
-
-`git reset` has different levels:
-
-| Command | What happens to commits? | What happens to file changes? |
-|---|---|---|
-| `git reset --soft <commit>` | Moves branch back | Keeps changes staged |
-| `git reset <commit>` | Moves branch back | Keeps changes but unstages them |
-| `git reset --hard <commit>` | Moves branch back | Deletes tracked file changes |
-
-Example:
-
-```bash
-git reset --soft HEAD~1
-```
-
-This removes the latest commit from the visible branch history, but keeps that commit's changes staged so you can commit them again.
-
-```bash
-git reset HEAD~1
-```
-
-This removes the latest commit from the visible branch history, but keeps the file changes in your working directory.
-
-```bash
-git reset --hard HEAD~1
-```
-
-This removes the latest commit from the visible branch history and also removes the file changes from your working directory.
-
-#### Quick Difference
-
-| Command | Deletes old commits from normal history? | Creates a new commit? | Safe for shared history? |
-|---|---|---|---|
-| `git revert <commit>` | No | Yes | Yes |
-| `git reset --hard <commit>` | Yes, from the current branch view | No | Usually no |
-
-**Simple rule:** use `git revert` for safer undoing, especially when commits were already pushed to GitHub or shared with other people. Use `git reset --hard` carefully because it rewrites the visible branch history and discards current local changes.
+**Simple rule:** use `git revert` for commits already pushed or shared. Use `git reset --hard` only when working locally and you are sure you do not need the current changes.
 
 ## A Typical Daily Workflow
 

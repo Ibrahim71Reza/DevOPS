@@ -165,6 +165,7 @@ There is no common command called `git revert --hard`. When people say "hard rev
 
 - **Repository (repo)** — a project tracked by Git
 - **Commit** — a saved snapshot of your project at a point in time
+- **Staged** — changes that have been selected with `git add` and are ready to be included in the next commit
 - **Branch** — an independent line of development
 - **Merge** — combining changes from one branch into another
 - **Remote** — a version of your repository hosted elsewhere (e.g. GitHub)

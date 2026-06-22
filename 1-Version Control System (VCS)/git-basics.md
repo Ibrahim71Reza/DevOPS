@@ -113,6 +113,7 @@ git fetch                    # Download remote changes without merging
 ```bash
 git restore <file>           # Discard changes in working directory
 git reset <file>             # Unstage a file
+git reset HEAD~1             # Uncommit the last commit but keep its changes
 git revert <commit>          # Create a new commit that undoes a previous one
 git reset --hard <commit>    # Move branch to an old commit and delete current local changes
 ```

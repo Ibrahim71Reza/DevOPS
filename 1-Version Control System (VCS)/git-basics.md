@@ -65,6 +65,8 @@ If `git diff` shows nothing, your changes may already be staged. Use `git diff -
 git add <file>              # Stage a specific file
 git add .                   # Stage everything in the current folder
 git commit -m "message"     # Save staged changes as a new snapshot
+git commit -m "Update documentation" -m "Explain core Git commands with beginner-friendly examples."
+                           # Save a commit with a short title and a longer description
 ```
 
 ### Branching

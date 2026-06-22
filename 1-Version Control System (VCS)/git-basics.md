@@ -69,6 +69,24 @@ git commit -m "Update documentation" -m "Explain core Git commands with beginner
                             # Save a commit with a short title and longer description
 ```
 
+### Amending the Last Commit
+
+`git commit --amend` is used to change the most recent commit. It is helpful when you forgot to add a file, made a small fix, or want to rename the last commit message.
+
+```bash
+git add <file>                       # Stage the forgotten or updated file
+git commit --amend                   # Add staged changes to the last commit
+git commit --amend -m "New message"  # Rename the last commit message
+```
+
+Amending creates a new version of the last commit. If the commit was already pushed to GitHub, a normal `git push` may be rejected. In that case, use:
+
+```bash
+git push --force-with-lease origin main
+```
+
+**Simple rule:** use `git commit --amend` before pushing. Be careful when amending commits that are already shared with others.
+
 ### Branching
 ```bash
 git branch                  # List branches

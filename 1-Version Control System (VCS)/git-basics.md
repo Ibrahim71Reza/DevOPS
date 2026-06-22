@@ -45,7 +45,7 @@ You never need to touch these files directly — Git commands manage them for yo
 
 ### Setting up
 ```bash
-git init                  # Turn the current folder into a git repository
+git init                   # Turn the current folder into a git repository
 git clone <url>            # Copy an existing remote repository to your machine
 ```
 
@@ -66,7 +66,7 @@ git add <file>              # Stage a specific file
 git add .                   # Stage everything in the current folder
 git commit -m "message"     # Save staged changes as a new snapshot
 git commit -m "Update documentation" -m "Explain core Git commands with beginner-friendly examples."
-                           # Save a commit with a short title and a longer description
+                            # Save a commit with a short title and longer description
 ```
 
 ### Branching
@@ -75,12 +75,12 @@ git branch                  # List branches
 git branch <name>           # Create a new branch
 git checkout <name>         # Switch to a branch
 git checkout -b <name>      # Create and switch in one step
-git switch <name>            # Modern alternative to checkout for switching branches
+git switch <name>           # Modern alternative to checkout for switching branches
 ```
 
 ### Merging
 ```bash
-git merge <branch>           # Merge another branch into your current branch
+git merge <branch>          # Merge another branch into your current branch
 ```
 
 ### Working with remotes (e.g. GitHub)
